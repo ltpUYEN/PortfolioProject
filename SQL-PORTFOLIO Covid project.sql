@@ -37,6 +37,14 @@ FROM CovidDeaths
 WHERE continent IS NOT NULL
 GROUP BY location, population
 ORDER BY TotalDeathCount DESC
+	---- -> the correct way
+Select location, SUM(cast(new_deaths as int)) as TotalDeathCount
+From project1..CovidDeaths
+--Where location like '%states%'
+Where continent is null 
+and location not in ('World', 'European Union', 'International')
+Group by location
+order by TotalDeathCount desc
 
 ----showing the continents with the highest deathcount
 SELECT continent, MAX(CAST(Total_Deaths AS INT)) TotalDeathCount
